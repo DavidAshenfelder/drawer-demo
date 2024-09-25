@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import DrawerComp from "./components/DrawerComp.js"
+import TTC from "./components/TTC.js";
+import Detail from "./components/Details.js";
+import Comments from "./components/Comments.js";
+import Header1 from "./components/Header1.js";
+import Header2 from "./components/Header2.js";
+import { ttcSubmit } from "./components/TTC.js";
+import { commentSubmit } from "./components/Comments.js";
+import { detailSubmit } from "./components/Details.js";
+import { Button } from "antd";
+import { useDispatch } from "react-redux";
+import { closeChildDrawer } from "./reducers/drawerSlice.js";
+import Combined from "./components/Combined.js";
 
-function App() {
+const App = () => {
+
+  const dispatch = useDispatch();
+
+  const submitAll = (drawerType) => {
+  
+    ttcSubmit();
+    commentSubmit();
+    detailSubmit();
+  
+    dispatch(closeChildDrawer(drawerType));
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <DrawerComp 
+        Detail={TTC}
+        Header={Header1}
+        buttonTitle='Transactions To Code'
+        drawerType={'ttc'}
+        submitAll={submitAll}
+      />
+      <DrawerComp
+        Detail={Detail}
+        Header={Header2}
+        buttonTitle='Detail'
+        drawerType={'details'}
+        submitAll={submitAll}
+      />
+      <DrawerComp
+        Detail={Comments}
+        Header={Header2}
+        buttonTitle='Comments'
+        drawerType={'comments'}
+        submitAll={submitAll}
+      />
+      <DrawerComp
+        Detail={Combined}
+        Header={Header2}
+        buttonTitle='Combined'
+        drawerType={'combined'}
+        submitAll={submitAll}
+      />
+    </>
+  )
+};
 
 export default App;
