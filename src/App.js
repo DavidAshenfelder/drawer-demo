@@ -187,6 +187,15 @@ const App = () => {
         submitAll={submitAllCombinedBothSuccess}
         buttonType='primary'
       />
+      <DrawerComp
+        DetailBody={ListView}
+        Header={Header2}
+        drawerId={'hide-footer'}
+        buttonTitle='Hide Footer'
+        submitAll={submitAllCombinedBothSuccess}
+        buttonType='primary'
+        showFooter={false}
+      />
     </div>
  
     </>

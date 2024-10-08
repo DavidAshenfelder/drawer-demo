@@ -16,7 +16,8 @@ const DrawerComp = ({
   submitAll,
   buttonTitle,
   drawerId,
-  buttonType
+  buttonType,
+  showFooter = true
 }) => {
 
   useEffect(() => {
@@ -31,7 +32,13 @@ const DrawerComp = ({
 
   const dispatch = useDispatch()
 
-  const Footer = () => (<Button color={buttonType || 'primary'} variant="solid" onClick={() => submitAll(drawerId)} >Submit and Close</Button>)
+  const Footer = () => {
+    var footer = null;
+    if (showFooter) {
+      footer = <Button color={buttonType || 'primary'} variant="solid" onClick={() => submitAll(drawerId)} >Submit and Close</Button>
+    }
+    return footer;
+  }
   
   return (
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '8px'}}>
