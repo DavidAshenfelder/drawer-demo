@@ -179,6 +179,14 @@ const App = () => {
         submitAll={submitAllCombinedBothSuccess}
         buttonType='primary'
       />
+      <DrawerComp
+        DetailBody={Combined}
+        Header={Header2}
+        drawerId={'single-layer'}
+        buttonTitle='Single Layer'
+        submitAll={submitAllCombinedBothSuccess}
+        buttonType='primary'
+      />
     </div>
  
     </>
