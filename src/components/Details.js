@@ -10,7 +10,7 @@ export const detailSubmit = createAction('detailView/submit', () => {
 const Details = () => {
     return (
         <>
-            <h1>Demo 2</h1>
+            <h1>Detail View Example</h1>
             <Button onClick={detailSubmit}>Detail Submit</Button>
         </>
     )

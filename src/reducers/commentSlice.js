@@ -10,8 +10,6 @@ export const commentSlice = createSlice({
   initialState,
   reducers: {
     onType: (state, action) => {
-        console.log(state);
-        console.log(action);
     }
   }
 });

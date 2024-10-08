@@ -7,14 +7,14 @@ export const ttcSubmit = createAction('detailView/submit', () => {
     return {};
 });
 
-const Demo1 = () => {
+const TTC = () => {
     return (
         <>
-            <h1>Demo 1</h1>
+            <h1>Transaction To Code Example</h1>
             <Button onClick={ttcSubmit}>TTC Submit</Button>
         </>
     )
 };
 
 
-export default Demo1;
+export default TTC;

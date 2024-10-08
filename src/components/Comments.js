@@ -12,7 +12,7 @@ export const commentSubmit = createAction('comment/submit', () => {
 const Comments = () => {
     return (
         <>
-            <h1>Demo 2</h1>
+            <h1>Comments</h1>
             <TextArea rows={4} placeholder="leave a comment" />
             <Button onClick={commentSubmit}>Submit Comment</Button>
         </>

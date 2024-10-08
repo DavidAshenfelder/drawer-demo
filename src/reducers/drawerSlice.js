@@ -1,23 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  comments: {
-    parentDrawerOpen: false,
-    childDrawerOpen: false,
-  },
-  details: {
-    parentDrawerOpen: false,
-    childDrawerOpen: false,
-  },
-  combined: {
-    parentDrawerOpen: false,
-    childDrawerOpen: false,
-  },
-  ttc: {
-    parentDrawerOpen: false,
-    childDrawerOpen: false,
-  }
-
+  
 }
 
 export const drawerSlice = createSlice({
@@ -26,7 +10,6 @@ export const drawerSlice = createSlice({
   reducers: {
     openParentDrawer: (state, action) => {
         const {payload } = action;
-        console.log(payload);
         state[payload].parentDrawerOpen = true;
     },
     closeParentDrawer: (state, action) => {
@@ -40,7 +23,19 @@ export const drawerSlice = createSlice({
     closeChildDrawer: (state, action) => {
         const {payload } = action;
         state[payload].childDrawerOpen = false;
-    }
+    },
+    setActiveTab: (state, action) => {
+      const { payload } = action;
+      const { drawerId, activeTab } = payload;
+      state[drawerId].activeTab = activeTab;
+    },
+    setInitialState: (state, action) => {
+      state[action.payload] = {
+        parentDrawerOpen: false,
+        childDrawerOpen: false,
+        activeTab: '1',
+      }
+    } 
   }
 });
 
@@ -48,7 +43,9 @@ export const {
     openParentDrawer,
     closeParentDrawer,
     openChildDrawer,
-    closeChildDrawer 
+    closeChildDrawer,
+    setActiveTab,
+    setInitialState
 } = drawerSlice.actions
 
 export default drawerSlice.reducer;
