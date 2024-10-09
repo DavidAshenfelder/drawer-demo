@@ -2,10 +2,14 @@ import Comments from "./Comments";
 import Details from "./Details";
 import { Tabs } from "antd";
 import { setActiveTab } from "../reducers/drawerSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
-const Combined = ({activeTab, drawerId}) => {
+const Combined = ({drawerId}) => {
+    
+    const drawer = useSelector((state) => state.drawer);    
+    const { activeTab } = drawer[drawerId]
+    
     const dispatch = useDispatch();
     const items = [
         {
@@ -26,7 +30,7 @@ const Combined = ({activeTab, drawerId}) => {
 
     return(
         <>
-            <Tabs defaultActiveKey="1" activeKey={activeTab} items={items} onChange={onChange} />
+            <Tabs activeKey={activeTab} items={items} onChange={onChange} />
         </>
     )
 };

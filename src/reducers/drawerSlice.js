@@ -8,21 +8,13 @@ export const drawerSlice = createSlice({
   name: 'drawer',
   initialState,
   reducers: {
-    openParentDrawer: (state, action) => {
+    openDrawer: (state, action) => {
         const {payload } = action;
-        state[payload].parentDrawerOpen = true;
+        state[payload].drawerOpen = true;
     },
-    closeParentDrawer: (state, action) => {
+    closeDrawer: (state, action) => {
         const {payload } = action;
-        state[payload].parentDrawerOpen = false;
-    },
-    openChildDrawer: (state, action) => {
-        const {payload } = action;
-        state[payload].childDrawerOpen = true;
-    },
-    closeChildDrawer: (state, action) => {
-        const {payload } = action;
-        state[payload].childDrawerOpen = false;
+        state[payload].drawerOpen = false;
     },
     setActiveTab: (state, action) => {
       const { payload } = action;
@@ -31,8 +23,7 @@ export const drawerSlice = createSlice({
     },
     setInitialState: (state, action) => {
       state[action.payload] = {
-        parentDrawerOpen: false,
-        childDrawerOpen: false,
+        drawerOpen: false,
         activeTab: '1',
       }
     } 
@@ -40,10 +31,8 @@ export const drawerSlice = createSlice({
 });
 
 export const {
-    openParentDrawer,
-    closeParentDrawer,
-    openChildDrawer,
-    closeChildDrawer,
+    openDrawer,
+    closeDrawer,
     setActiveTab,
     setInitialState
 } = drawerSlice.actions

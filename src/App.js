@@ -3,13 +3,11 @@ import TTC, { ttcSubmit } from "./components/TTC.js";
 import Details, { detailSubmit } from "./components/Details.js";
 import Comments, { commentSubmit } from "./components/Comments.js";
 import Combined from "./components/Combined.js";
-import Header1 from "./components/Header1.js";
-import Header2 from "./components/Header2.js";
 import Test from "./components/Test.js";
 import ListView from "./components/ListView.js";
 import { notification } from "antd";
 import { useDispatch } from "react-redux";
-import { closeChildDrawer, closeParentDrawer, setActiveTab } from "./reducers/drawerSlice.js";
+import { closeDrawer, setActiveTab,  } from "./reducers/drawerSlice.js";
 import { nanoid } from "@reduxjs/toolkit";
 
 const App = () => {
@@ -23,7 +21,7 @@ const App = () => {
     
     sendSuccess()
 
-    dispatch(closeChildDrawer(drawerId));
+    dispatch(closeDrawer(drawerId));
   }
 
   const submitAllCombinedCommentError = (drawerId) => {
@@ -66,8 +64,8 @@ const App = () => {
     commentSubmit();
     detailSubmit();
 
-    dispatch(closeChildDrawer(drawerId));
-    dispatch(closeParentDrawer(drawerId));
+    dispatch(closeDrawer(drawerId));
+    dispatch(closeDrawer(drawerId));
     sendSuccess()
 
   }
@@ -96,108 +94,101 @@ const App = () => {
         'Saved successfully.',
     });
   }
-
+  const ttcDrawerID = nanoid();
   return (
     <>
     <div>
       <DrawerComp 
-        Header={Header1}
-        DetailBody={TTC}
-        ListView={ListView}
         buttonTitle='Transactions To Code'
-        drawerId={nanoid()}
-        submitAll={(drawerId) => { ttcSubmit();  dispatch(closeChildDrawer(drawerId)); sendSuccess();}}
-      />
+        drawerId={ttcDrawerID}
+        showFooter={false}
+      >
+        <ListView
+          submitAll={(drawerId) => { ttcSubmit();  dispatch(closeDrawer(drawerId)); sendSuccess();}}
+        >
+          <TTC/>
+        </ListView>
+      </DrawerComp>
+
       <DrawerComp
-        DetailBody={Details}
-        Header={Header2}
-        ListView={ListView}
         buttonTitle='Body'
         drawerId={nanoid()}
-        submitAll={(drawerId) => { detailSubmit();  dispatch(closeChildDrawer(drawerId)); sendSuccess();}}
-      />
+        submitAll={(drawerId) => { detailSubmit();  dispatch(closeDrawer(drawerId)); sendSuccess();}}
+      >
+        <Details/>
+      </DrawerComp>
+
       <DrawerComp
-        DetailBody={Comments}
-        Header={Header2}
-        ListView={ListView}
         buttonTitle='Comments'
         drawerId={'comments'}
-        submitAll={(drawerId) => { commentSubmit();  dispatch(closeChildDrawer(drawerId)); sendSuccess();}}
-      />
+        submitAll={(drawerId) => { commentSubmit();  dispatch(closeDrawer(drawerId)); sendSuccess();}}
+      >
+        <Comments/>
+      </DrawerComp>
+
       <DrawerComp
-        DetailBody={Combined}
-        Header={Header2}
-        ListView={ListView}
         buttonTitle='Combined'
         drawerId={'combined'}
         submitAll={submitAll}
-      />
+      >
+        <Combined drawerId={'combined'}/>
+      </DrawerComp>
     </div>
     <div>
+
       <DrawerComp
-        DetailBody={Combined}
-        Header={Header2}
-        ListView={ListView}
-        drawerId={'combined-comment-error'}
         buttonTitle='Comment Error'
+        drawerId={'combined-comment-error'}
         submitAll={submitAllCombinedCommentError}
         buttonType='danger'
-      />
+      >
+        <Combined drawerId={'combined-comment-error'}/>
+      </DrawerComp>
+
       <DrawerComp
-        DetailBody={Combined}
-        Header={Header2}
-        ListView={ListView}
         drawerId={'combined-detail-error'}
-        buttonTitle='Body Error'
+        buttonTitle='Detail Error'
         submitAll={submitAllCombinedDetailError}
         buttonType='danger'
-      />
+      >
+        <Combined drawerId={'combined-detail-error'}/>
+      </DrawerComp>
+
       <DrawerComp
-        DetailBody={Combined}
-        Header={Header2}
-        ListView={ListView}
         drawerId={'combined-both-error'}
         buttonTitle='Both Error'
         submitAll={submitAllCombinedBothError}
         buttonType='danger'
-      />
+      >
+        <Combined drawerId={'combined-both-error'}/>
+      </DrawerComp>
+
       <DrawerComp
-        DetailBody={Combined}
-        Header={Header2}
-        ListView={ListView}
         drawerId={'combined-both-success'}
         buttonTitle='Both Success'
-        submitAll={submitAllCombinedBothSuccess}
-        buttonType='primary'
-      />
-      <DrawerComp
-        DetailBody={Test}
-        Header={Header2}
-        ListView={ListView}
-        drawerId={'combined-test'}
-        buttonTitle='Test'
-        submitAll={submitAllCombinedBothSuccess}
-        buttonType='primary'
-      />
-      <DrawerComp
-        DetailBody={Combined}
-        Header={Header2}
-        drawerId={'single-layer'}
-        buttonTitle='Single Layer'
-        submitAll={submitAllCombinedBothSuccess}
-        buttonType='primary'
-      />
-      <DrawerComp
-        DetailBody={ListView}
-        Header={Header2}
-        drawerId={'hide-footer'}
-        buttonTitle='Hide Footer'
-        submitAll={submitAllCombinedBothSuccess}
         buttonType='primary'
         showFooter={false}
-      />
+      > 
+        <ListView 
+          submitAll={submitAllCombinedBothSuccess}
+        >
+          <Combined drawerId={'combined-both-success'}/>
+        </ListView>
+      </DrawerComp>
+
+      <DrawerComp
+        drawerId={'combined-test'}
+        buttonTitle='Combined Test'
+        buttonType='primary'
+        showFooter={false}
+      > 
+        <ListView
+          submitAll={submitAllCombinedBothSuccess}
+        >
+          <Test drawerId={'combined-test'}/>
+        </ListView>
+      </DrawerComp>
     </div>
- 
     </>
   )
 };
