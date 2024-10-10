@@ -9,6 +9,7 @@ import { notification } from "antd";
 import { useDispatch } from "react-redux";
 import { closeDrawer, setActiveTab,  } from "./reducers/drawerSlice.js";
 import { nanoid } from "@reduxjs/toolkit";
+import TabGroup from "./components/TabGroup.js";
 
 const App = () => {
 
@@ -105,6 +106,7 @@ const App = () => {
       >
         <ListView
           submitAll={(drawerId) => { ttcSubmit();  dispatch(closeDrawer(drawerId)); sendSuccess();}}
+          drawerId={ttcDrawerID}
         >
           <TTC/>
         </ListView>
@@ -130,6 +132,7 @@ const App = () => {
         buttonTitle='Combined'
         drawerId={'combined'}
         submitAll={submitAll}
+        title={<TabGroup drawerId={'combined'}/>}
       >
         <Combined drawerId={'combined'}/>
       </DrawerComp>
@@ -139,28 +142,47 @@ const App = () => {
       <DrawerComp
         buttonTitle='Comment Error'
         drawerId={'combined-comment-error'}
-        submitAll={submitAllCombinedCommentError}
+        submitAll={() => submitAllCombinedCommentError('combined-comment-error')}
         buttonType='danger'
       >
-        <Combined drawerId={'combined-comment-error'}/>
+        <ListView
+          drawerId={'combined-comment-error'}
+          submitAll={() => submitAllCombinedCommentError('combined-comment-error')}
+          title={<TabGroup drawerId={'combined-comment-error'}/>}
+        >
+          <Combined drawerId={'combined-comment-error'}/>
+        </ListView>
       </DrawerComp>
 
       <DrawerComp
         drawerId={'combined-detail-error'}
         buttonTitle='Detail Error'
-        submitAll={submitAllCombinedDetailError}
+        submitAll={() => submitAllCombinedDetailError('combined-detail-error')}
         buttonType='danger'
       >
-        <Combined drawerId={'combined-detail-error'}/>
+        <ListView
+          drawerId={'combined-detail-error'}
+          submitAll={() => submitAllCombinedDetailError('combined-detail-error')}
+          title={<TabGroup drawerId={'combined-detail-error'}/>}
+        >
+          <Combined drawerId={'combined-detail-error'}/>
+        </ListView>
       </DrawerComp>
 
       <DrawerComp
         drawerId={'combined-both-error'}
         buttonTitle='Both Error'
-        submitAll={submitAllCombinedBothError}
+        submitAll={() => submitAllCombinedBothError('combined-both-error')}
         buttonType='danger'
       >
-        <Combined drawerId={'combined-both-error'}/>
+        <ListView
+          drawerId={'combined-both-error'}
+          submitAll={() => submitAllCombinedBothError('combined-both-error')}
+          title={<TabGroup drawerId={'combined-both-error'}/>}
+        >
+          <Combined drawerId={'combined-both-error'}/>
+        </ListView>
+
       </DrawerComp>
 
       <DrawerComp
@@ -171,6 +193,8 @@ const App = () => {
       > 
         <ListView 
           submitAll={submitAllCombinedBothSuccess}
+          drawerId={'combined-both-success'}
+          title={<TabGroup drawerId={'combined-both-success'}/>}
         >
           <Combined drawerId={'combined-both-success'}/>
         </ListView>
@@ -184,8 +208,23 @@ const App = () => {
       > 
         <ListView
           submitAll={submitAllCombinedBothSuccess}
+          drawerId={'combined-test'}
         >
           <Test drawerId={'combined-test'}/>
+        </ListView>
+      </DrawerComp>
+
+      <DrawerComp
+        drawerId={'combined-test-1'}
+        buttonTitle='Combined Test 1'
+        buttonType='primary'
+        showFooter={false}
+      > 
+        <ListView
+          submitAll={submitAllCombinedBothSuccess}
+          drawerId={'combined-test-1'}
+        >
+          <Test drawerId={'combined-test-1'}/>
         </ListView>
       </DrawerComp>
     </div>

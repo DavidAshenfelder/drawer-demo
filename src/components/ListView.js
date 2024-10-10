@@ -3,8 +3,9 @@ import { openDrawer, closeDrawer } from "../reducers/drawerSlice.js";
 import { useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import DrawerComp from "./DrawerComp.js";
+import TabGroup from './TabGroup.js'
 
-const ListView = ({ children, submitAll }) => {
+const ListView = ({ children, submitAll, title }) => {
   const dispatch = useDispatch();
 
   const data = [
@@ -20,6 +21,7 @@ const ListView = ({ children, submitAll }) => {
       <DrawerComp
         drawerId={secondDrawerId}
         submitAll={submitAll ? submitAll : () => {}}
+        title={title}
       >
       {children}
       </DrawerComp>

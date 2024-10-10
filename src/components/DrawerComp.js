@@ -14,6 +14,7 @@ const DrawerComp = (props) => {
     buttonType,
     showFooter = true,
     submitAll,
+    title,
     children
   } = props;
 
@@ -48,7 +49,7 @@ const DrawerComp = (props) => {
           }
   
           <Drawer 
-            title={ "List View"}
+            title={ title || "List View"}
             width={520}
             closable={true}
             onClose={() => dispatch(closeDrawer(drawerId))} 
